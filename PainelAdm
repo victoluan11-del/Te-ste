@@ -1279,3 +1279,167 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
+--================ ABA CRÉDITOS ===================
+createPage("Créditos")
+local creditPage = pages["Créditos"]
+creditPage.Visible = false
+
+-- Texto principal
+local creditText = Instance.new("TextLabel", creditPage)
+creditText.Size = UDim2.fromScale(0.9, 0.4)
+creditText.Position = UDim2.fromScale(0.05, 0.15)
+creditText.BackgroundTransparency = 1
+creditText.TextWrapped = true
+creditText.TextScaled = true
+creditText.Font = Enum.Font.GothamBold
+creditText.TextColor3 = Color3.fromRGB(0, 255, 255)
+
+creditText.Text = [[
+DELTA PREMIUM ULTRA
+
+Versão: 1.0
+
+Criador:
+akira
+]]
+
+-- Botão Discord
+local discordBtn = Instance.new("TextButton", creditPage)
+discordBtn.Size = UDim2.fromScale(0.6, 0.1)
+discordBtn.Position = UDim2.fromScale(0.2, 0.6)
+discordBtn.Text = "Discord (Clique para copiar)"
+discordBtn.TextScaled = true
+discordBtn.Font = Enum.Font.GothamBold
+discordBtn.BackgroundColor3 = Color3.fromRGB(88, 101, 242) -- cor Discord
+discordBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+Instance.new("UICorner", discordBtn)
+
+-- Função copiar Discord
+local DISCORD_LINK = "https://discord.gg/VWZrJY92"
+
+discordBtn.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard(DISCORD_LINK)
+        discordBtn.Text = "Link copiado!"
+        task.wait(1.5)
+        discordBtn.Text = "Discord (Clique para copiar)"
+    else
+        discordBtn.Text = "Executor não suporta copiar"
+        task.wait(1.5)
+        discordBtn.Text = "Discord (Clique para copiar)"
+    end
+end)
+
+--================ ABA MUSIC ===================
+createPage("Music")
+local musicPage = pages["Music"]
+musicPage.Visible = false
+
+-- Caixa ID da música
+local musicBox = Instance.new("TextBox", musicPage)
+musicBox.PlaceholderText = "ID da música (ex: 1843529634)"
+musicBox.Size = UDim2.fromScale(0.7, 0.08)
+musicBox.Position = UDim2.fromScale(0.15, 0.2)
+musicBox.BackgroundColor3 = Color3.fromRGB(35,35,35)
+musicBox.TextColor3 = Color3.fromRGB(255,255,255)
+musicBox.TextScaled = true
+musicBox.ClearTextOnFocus = false
+Instance.new("UICorner", musicBox)
+
+-- Botão Play
+local playBtn = Instance.new("TextButton", musicPage)
+playBtn.Size = UDim2.fromScale(0.35, 0.08)
+playBtn.Position = UDim2.fromScale(0.15, 0.32)
+playBtn.Text = "Play"
+playBtn.TextScaled = true
+playBtn.Font = Enum.Font.GothamBold
+playBtn.BackgroundColor3 = Color3.fromRGB(0,200,0)
+playBtn.TextColor3 = Color3.fromRGB(0,0,0)
+Instance.new("UICorner", playBtn)
+
+-- Botão Stop
+local stopBtn = Instance.new("TextButton", musicPage)
+stopBtn.Size = UDim2.fromScale(0.35, 0.08)
+stopBtn.Position = UDim2.fromScale(0.5, 0.32)
+stopBtn.Text = "Stop"
+stopBtn.TextScaled = true
+stopBtn.Font = Enum.Font.GothamBold
+stopBtn.BackgroundColor3 = Color3.fromRGB(200,0,0)
+stopBtn.TextColor3 = Color3.fromRGB(255,255,255)
+Instance.new("UICorner", stopBtn)
+
+-- Som (local apenas)
+local musicSound = Instance.new("Sound")
+musicSound.Volume = 3
+musicSound.Looped = true
+musicSound.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Play música
+playBtn.MouseButton1Click:Connect(function()
+	local id = tonumber(musicBox.Text)
+	if id then
+		musicSound.SoundId = "rbxassetid://" .. id
+		musicSound:Play()
+	end
+end)
+
+-- Stop música
+stopBtn.MouseButton1Click:Connect(function()
+	musicSound:Stop()
+end)
+
+--================ VOLUME SLIDER ===================
+
+-- Fundo do slider
+local volumeBg = Instance.new("Frame", musicPage)
+volumeBg.Size = UDim2.fromScale(0.7, 0.06)
+volumeBg.Position = UDim2.fromScale(0.15, 0.48)
+volumeBg.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Instance.new("UICorner", volumeBg)
+
+-- Barra de volume
+local volumeFill = Instance.new("Frame", volumeBg)
+volumeFill.Size = UDim2.fromScale(0.3, 1)
+volumeFill.BackgroundColor3 = Color3.fromRGB(0,200,200)
+Instance.new("UICorner", volumeFill)
+
+-- Texto Volume
+local volumeText = Instance.new("TextLabel", musicPage)
+volumeText.Size = UDim2.fromScale(0.7, 0.05)
+volumeText.Position = UDim2.fromScale(0.15, 0.55)
+volumeText.BackgroundTransparency = 1
+volumeText.Text = "Volume: 3"
+volumeText.TextScaled = true
+volumeText.Font = Enum.Font.GothamBold
+volumeText.TextColor3 = Color3.fromRGB(255,255,255)
+
+-- Controle de volume
+local dragging = false
+
+volumeBg.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+	end
+end)
+
+volumeBg.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = false
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+		local mouseX = input.Position.X
+		local startX = volumeBg.AbsolutePosition.X
+		local sizeX = volumeBg.AbsoluteSize.X
+
+		local percent = math.clamp((mouseX - startX) / sizeX, 0, 1)
+		volumeFill.Size = UDim2.fromScale(percent, 1)
+
+		local vol = math.floor(percent * 10)
+		musicSound.Volume = vol
+		volumeText.Text = "Volume: " .. vol
+	end
+end)

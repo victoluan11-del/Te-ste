@@ -1,0 +1,1281 @@
+ --====================================================
+-- DELTA PREMIUM ULTRA | FULL FINAL
+-- ESP LINE + AIMBOT RAGE
+-- MOBILE + PC
+-- KEY SYSTEM (100 KEYS)
+--====================================================
+
+--================ SERVICES =================
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Lighting = game:GetService("Lighting")
+local TweenService = game:GetService("TweenService")
+local VirtualUser = game:GetService("VirtualUser")
+local Camera = workspace.CurrentCamera
+
+local LocalPlayer = Players.LocalPlayer
+
+--================ KEYS =====================
+local KEYS = {
+	["DELTA-001"]=true,["DELTA-002"]=true,["DELTA-003"]=true,["DELTA-004"]=true,["DELTA-005"]=true,
+	["DELTA-006"]=true,["DELTA-007"]=true,["DELTA-008"]=true,["DELTA-009"]=true,["DELTA-010"]=true,
+	["DELTA-011"]=true,["DELTA-012"]=true,["DELTA-013"]=true,["DELTA-014"]=true,["DELTA-015"]=true,
+	["DELTA-016"]=true,["DELTA-017"]=true,["DELTA-018"]=true,["DELTA-019"]=true,["DELTA-020"]=true,
+	["DELTA-021"]=true,["DELTA-022"]=true,["DELTA-023"]=true,["DELTA-024"]=true,["DELTA-025"]=true,
+	["DELTA-026"]=true,["DELTA-027"]=true,["DELTA-028"]=true,["DELTA-029"]=true,["DELTA-030"]=true,
+	["DELTA-031"]=true,["DELTA-032"]=true,["DELTA-033"]=true,["DELTA-034"]=true,["DELTA-035"]=true,
+	["DELTA-036"]=true,["DELTA-037"]=true,["DELTA-038"]=true,["DELTA-039"]=true,["DELTA-040"]=true,
+	["DELTA-041"]=true,["DELTA-042"]=true,["DELTA-043"]=true,["DELTA-044"]=true,["DELTA-045"]=true,
+	["DELTA-046"]=true,["DELTA-047"]=true,["DELTA-048"]=true,["DELTA-049"]=true,["DELTA-050"]=true,
+	["DELTA-051"]=true,["DELTA-052"]=true,["DELTA-053"]=true,["DELTA-054"]=true,["DELTA-055"]=true,
+	["DELTA-056"]=true,["DELTA-057"]=true,["DELTA-058"]=true,["DELTA-059"]=true,["DELTA-060"]=true,
+	["DELTA-061"]=true,["DELTA-062"]=true,["DELTA-063"]=true,["DELTA-064"]=true,["DELTA-065"]=true,
+	["DELTA-066"]=true,["DELTA-067"]=true,["DELTA-068"]=true,["DELTA-069"]=true,["DELTA-070"]=true,
+	["DELTA-071"]=true,["DELTA-072"]=true,["DELTA-073"]=true,["DELTA-074"]=true,["DELTA-075"]=true,
+	["DELTA-076"]=true,["DELTA-077"]=true,["DELTA-078"]=true,["DELTA-079"]=true,["DELTA-080"]=true,
+	["DELTA-081"]=true,["DELTA-082"]=true,["DELTA-083"]=true,["DELTA-084"]=true,["DELTA-085"]=true,
+	["DELTA-086"]=true,["DELTA-087"]=true,["DELTA-088"]=true,["DELTA-089"]=true,["DELTA-090"]=true,
+	["DELTA-091"]=true,["DELTA-092"]=true,["DELTA-093"]=true,["DELTA-094"]=true,["DELTA-095"]=true,
+	["DELTA-096"]=true,["DELTA-097"]=true,["DELTA-098"]=true,["DELTA-099"]=true,["DELTA-100"]=true,
+}
+
+--================ BLUR =====================
+local blur = Instance.new("BlurEffect")
+blur.Size = 0
+blur.Parent = Lighting
+
+--================ GUI ======================
+local gui = Instance.new("ScreenGui")
+gui.IgnoreGuiInset = true
+gui.ResetOnSpawn = false
+gui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+--================ DRAG =====================
+local function drag(frame)
+	local dragging, dragStart, startPos
+	frame.InputBegan:Connect(function(i)
+		if i.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = true
+			dragStart = i.Position
+			startPos = frame.Position
+			i.Changed:Connect(function()
+				if i.UserInputState == Enum.UserInputState.End then dragging = false end
+			end)
+		end
+	end)
+	UIS.InputChanged:Connect(function(i)
+		if dragging and (i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch) then
+			local delta = i.Position - dragStart
+			frame.Position = UDim2.new(
+				startPos.X.Scale, startPos.X.Offset + delta.X,
+				startPos.Y.Scale, startPos.Y.Offset + delta.Y
+			)
+		end
+	end)
+end
+
+--================ INTRO ====================
+local intro = Instance.new("TextLabel", gui)
+intro.Size = UDim2.fromScale(1,1)
+intro.BackgroundColor3 = Color3.fromRGB(10,10,10)
+intro.Text = "DELTA PREMIUM ULTRA"
+intro.TextColor3 = Color3.fromRGB(255,255,0)
+intro.Font = Enum.Font.GothamBlack
+intro.TextScaled = true
+TweenService:Create(blur, TweenInfo.new(0.4), {Size = 25}):Play()
+task.wait(1.3)
+intro:Destroy()
+
+--================ LOGIN (KEY) =================
+local login = Instance.new("Frame", gui)
+login.Size = UDim2.fromScale(0.35,0.3)
+login.Position = UDim2.fromScale(0.325,0.35)
+login.BackgroundColor3 = Color3.fromRGB(20,20,20)
+Instance.new("UICorner", login)
+drag(login)
+
+local titleLogin = Instance.new("TextLabel", login)
+titleLogin.Size = UDim2.fromScale(1,0.2)
+titleLogin.BackgroundTransparency = 1
+titleLogin.Text = "KEY SYSTEM"
+titleLogin.TextScaled = true
+titleLogin.Font = Enum.Font.GothamBold
+titleLogin.TextColor3 = Color3.fromRGB(255,255,255)
+
+local keyBox = Instance.new("TextBox", login)
+keyBox.PlaceholderText = "Digite sua KEY"
+keyBox.Size = UDim2.fromScale(0.85,0.25)
+keyBox.Position = UDim2.fromScale(0.075,0.35)
+keyBox.BackgroundColor3 = Color3.fromRGB(35,35,35)
+keyBox.TextColor3 = Color3.fromRGB(255,255,255)
+keyBox.TextScaled = true
+Instance.new("UICorner", keyBox)
+
+local loginBtn = Instance.new("TextButton", login)
+loginBtn.Text = "ENTRAR"
+loginBtn.Size = UDim2.fromScale(0.5,0.2)
+loginBtn.Position = UDim2.fromScale(0.25,0.7)
+loginBtn.TextScaled = true
+loginBtn.BackgroundColor3 = Color3.fromRGB(0,200,200)
+loginBtn.TextColor3 = Color3.fromRGB(0,0,0)
+Instance.new("UICorner", loginBtn)
+
+--================ MAIN PANEL =================
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.fromScale(0.6,0.65)
+main.Position = UDim2.fromScale(0.2,0.18)
+main.BackgroundColor3 = Color3.fromRGB(18,18,18)
+main.Visible = false
+Instance.new("UICorner", main)
+drag(main)
+
+--================ TOP BAR ===================
+local top = Instance.new("Frame", main)
+top.Size = UDim2.fromScale(1,0.12)
+top.BackgroundColor3 = Color3.fromRGB(25,25,25)
+
+local title = Instance.new("TextLabel", top)
+title.Size = UDim2.fromScale(0.7,1)
+title.BackgroundTransparency = 1
+title.Text = "DELTA PREMIUM ULTRA"
+title.Font = Enum.Font.GothamBold
+title.TextScaled = true
+title.TextColor3 = Color3.fromRGB(255,255,0)
+
+local minBtn = Instance.new("TextButton", top)
+minBtn.Text = "-"
+minBtn.Size = UDim2.fromScale(0.12,0.7)
+minBtn.Position = UDim2.fromScale(0.73,0.15)
+minBtn.TextScaled = true
+minBtn.BackgroundColor3 = Color3.fromRGB(80,80,80)
+minBtn.TextColor3 = Color3.fromRGB(255,255,255)
+
+local closeBtn = Instance.new("TextButton", top)
+closeBtn.Text = "X"
+closeBtn.Size = UDim2.fromScale(0.12,0.7)
+closeBtn.Position = UDim2.fromScale(0.86,0.15)
+closeBtn.TextScaled = true
+closeBtn.BackgroundColor3 = Color3.fromRGB(200,60,60)
+closeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+
+--================ MINI BAR ==================
+local mini = Instance.new("Frame", gui)
+mini.Size = UDim2.fromScale(0.32,0.07)
+mini.Position = UDim2.fromScale(0.02,0.9)
+mini.BackgroundColor3 = Color3.fromRGB(20,20,20)
+mini.Visible = false
+Instance.new("UICorner", mini)
+drag(mini)
+
+local miniText = Instance.new("TextLabel", mini)
+miniText.Size = UDim2.fromScale(0.7,1)
+miniText.BackgroundTransparency = 1
+miniText.Text = "DELTA PREMIUM ULTRA"
+miniText.TextScaled = true
+miniText.Font = Enum.Font.GothamBold
+miniText.TextColor3 = Color3.fromRGB(255,255,0)
+
+local openBtn = Instance.new("TextButton", mini)
+openBtn.Size = UDim2.fromScale(0.3,1)
+openBtn.Position = UDim2.fromScale(0.7,0)
+openBtn.Text = "ABRIR"
+openBtn.TextScaled = true
+openBtn.BackgroundColor3 = Color3.fromRGB(0,200,200)
+openBtn.TextColor3 = Color3.fromRGB(0,0,0)
+
+--================ CHARACTER =================
+local character, humanoid, hrp
+local function refreshChar()
+	character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+	humanoid = character:WaitForChild("Humanoid")
+	hrp = character:WaitForChild("HumanoidRootPart")
+end
+refreshChar()
+LocalPlayer.CharacterAdded:Connect(refreshChar)
+
+--================ ESP LINE ==================
+local espLineEnabled = false
+local function createESP(plr)
+	if plr == LocalPlayer then return end
+	local line = Drawing.new("Line")
+	line.Thickness = 2
+	line.Color = Color3.fromRGB(0,255,255)
+	line.Visible = false
+
+	RunService.RenderStepped:Connect(function()
+		if not plr.Character or not plr.Character:FindFirstChild("HumanoidRootPart") then
+			line.Visible = false
+			return
+		end
+		local pos, onScreen = Camera:WorldToViewportPoint(plr.Character.HumanoidRootPart.Position)
+		if espLineEnabled and onScreen then
+			line.From = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y)
+			line.To = Vector2.new(pos.X, pos.Y)
+			line.Visible = true
+		else
+			line.Visible = false
+		end
+	end)
+end
+for _,p in pairs(Players:GetPlayers()) do createESP(p) end
+Players.PlayerAdded:Connect(createESP)
+
+--================ TOGGLE ===================
+local function toggle(parent,text,y,callback)
+	local on = false
+	local b = Instance.new("TextButton", parent)
+	b.Size = UDim2.fromScale(0.9,0.08)
+	b.Position = UDim2.fromScale(0.05,y)
+	b.Text = text.." : OFF"
+	b.TextScaled = true
+	b.BackgroundColor3 = Color3.fromRGB(30,30,30)
+	b.TextColor3 = Color3.fromRGB(255,255,255)
+	Instance.new("UICorner", b)
+	b.MouseButton1Click:Connect(function()
+		on = not on
+		b.Text = text..(on and " : ON" or " : OFF")
+		if callback then callback(on) end
+	end)
+end
+
+--================ PAGES ====================
+local pages = {}
+local tabBar = Instance.new("Frame", main)
+tabBar.Size = UDim2.fromScale(0.22,0.88)
+tabBar.Position = UDim2.fromScale(0,0.12)
+tabBar.BackgroundColor3 = Color3.fromRGB(22,22,22)
+
+local function createPage(name)
+	local p = Instance.new("ScrollingFrame", main)
+	p.Size = UDim2.fromScale(0.78,0.88)
+	p.Position = UDim2.fromScale(0.22,0.12)
+	p.CanvasSize = UDim2.new(0,0,2,0)
+	p.ScrollBarImageTransparency = 1
+	p.Visible = false
+	p.BackgroundTransparency = 1
+	pages[name] = p
+end
+
+for _,n in pairs({"Player","Visual","ESP","World","Combat","Misc"}) do
+	createPage(n)
+end
+pages.Player.Visible = true
+
+local function switchTab(tab)
+	for _,p in pairs(pages) do p.Visible = false end
+	pages[tab].Visible = true
+end
+
+local i=0
+for name,_ in pairs(pages) do
+	i+=1
+	local b = Instance.new("TextButton", tabBar)
+	b.Size = UDim2.fromScale(1,0.1)
+	b.Position = UDim2.fromScale(0,(i-1)*0.11)
+	b.Text = name
+	b.TextScaled = true
+	b.TextColor3 = Color3.fromRGB(255,255,255)
+	b.BackgroundColor3 = Color3.fromRGB(35,35,35)
+	b.MouseButton1Click:Connect(function()
+		switchTab(name)
+	end)
+end
+
+--================ PLAYER ===================
+toggle(pages.Player,"Speed",0.02,function(v)
+	humanoid.WalkSpeed = v and 50 or 16
+end)
+toggle(pages.Player,"Jump Boost",0.12,function(v)
+	humanoid.JumpPower = v and 120 or 50
+end)
+
+--================ ESP ======================
+toggle(pages.ESP,"ESP LINE",0.02,function(v)
+	espLineEnabled = v
+end)
+
+--================ AIMBOT ===================
+local aimbotEnabled = false
+local aimbotFOV = 150
+local function getClosestTarget()
+	local closest, dist = nil, math.huge
+	for _,p in pairs(Players:GetPlayers()) do
+		if p ~= LocalPlayer and p.Character
+		and p.Character:FindFirstChild("Head")
+		and p.Character:FindFirstChild("Humanoid")
+		and p.Character.Humanoid.Health > 0 then
+			local pos, onScreen = Camera:WorldToViewportPoint(p.Character.Head.Position)
+			if onScreen then
+				local mag = (Vector2.new(pos.X,pos.Y) -
+				Vector2.new(Camera.ViewportSize.X/2,Camera.ViewportSize.Y/2)).Magnitude
+				if mag < dist and mag < aimbotFOV then
+					dist = mag
+					closest = p
+				end
+			end
+		end
+	end
+	return closest
+end
+RunService.RenderStepped:Connect(function()
+	if aimbotEnabled then
+		local t = getClosestTarget()
+		if t and t.Character then
+			Camera.CFrame = CFrame.new(Camera.CFrame.Position, t.Character.Head.Position)
+		end
+	end
+end)
+
+--================ COMBAT ===================
+toggle(pages.Combat,"Aimbot Rage",0.02,function(v)
+	aimbotEnabled = v
+end)
+toggle(pages.Combat,"Aimbot FOV 150",0.12,function()
+	aimbotFOV = 150
+end)
+toggle(pages.Combat,"Anti Knockback",0.22,function(v)
+	if v then
+		RunService:BindToRenderStep("AntiKB",1,function()
+			if hrp then
+				hrp.Velocity = Vector3.new(hrp.Velocity.X,0,hrp.Velocity.Z)
+			end
+		end)
+	else
+		RunService:UnbindFromRenderStep("AntiKB")
+	end
+end)
+
+--================ MISC =====================
+toggle(pages.Misc,"Anti AFK",0.02,function(v)
+	if v then
+		RunService:BindToRenderStep("AFK",1,function()
+			VirtualUser:Button2Down(Vector2.new(),Camera.CFrame)
+			task.wait(1)
+			VirtualUser:Button2Up(Vector2.new(),Camera.CFrame)
+		end)
+	else
+		RunService:UnbindFromRenderStep("AFK")
+	end
+end)
+
+--================ LOGIN LOGIC =================
+loginBtn.MouseButton1Click:Connect(function()
+	if KEYS[keyBox.Text] then
+		login:Destroy()
+		main.Visible = true
+		TweenService:Create(blur, TweenInfo.new(0.3), {Size = 25}):Play()
+	else
+		keyBox.Text = ""
+		keyBox.PlaceholderText = "KEY INVÁLIDA"
+	end
+end)
+
+minBtn.MouseButton1Click:Connect(function()
+	main.Visible=false
+	mini.Visible=true
+	blur.Size=0
+end)
+openBtn.MouseButton1Click:Connect(function()
+	main.Visible=true
+	mini.Visible=false
+	TweenService:Create(blur,TweenInfo.new(0.3),{Size=25}):Play()
+end)
+closeBtn.MouseButton1Click:Connect(function()
+	gui:Destroy()
+	blur:Destroy()
+end)
+
+--================ WORLD ===================
+
+local defaultLighting = {
+	Brightness = Lighting.Brightness,
+	ClockTime = Lighting.ClockTime,
+	FogEnd = Lighting.FogEnd,
+	Ambient = Lighting.Ambient,
+	OutdoorAmbient = Lighting.OutdoorAmbient
+}
+
+toggle(pages.World,"Full Bright",0.02,function(v)
+	if v then
+		Lighting.Brightness = 3
+		Lighting.Ambient = Color3.fromRGB(255,255,255)
+		Lighting.OutdoorAmbient = Color3.fromRGB(255,255,255)
+	else
+		Lighting.Brightness = defaultLighting.Brightness
+		Lighting.Ambient = defaultLighting.Ambient
+		Lighting.OutdoorAmbient = defaultLighting.OutdoorAmbient
+	end
+end)
+
+toggle(pages.World,"No Fog",0.12,function(v)
+	if v then
+		Lighting.FogEnd = 100000
+	else
+		Lighting.FogEnd = defaultLighting.FogEnd
+	end
+end)
+
+toggle(pages.World,"Day Mode",0.22,function(v)
+	if v then
+		Lighting.ClockTime = 14
+	else
+		Lighting.ClockTime = defaultLighting.ClockTime
+	end
+end)
+
+toggle(pages.World,"Night Mode",0.32,function(v)
+	if v then
+		Lighting.ClockTime = 0
+	else
+		Lighting.ClockTime = defaultLighting.ClockTime
+	end
+end)
+
+toggle(pages.World,"Color Boost",0.42,function(v)
+	if v then
+		if not Lighting:FindFirstChild("DeltaColor") then
+			local cc = Instance.new("ColorCorrectionEffect")
+			cc.Name = "DeltaColor"
+			cc.Saturation = 0.3
+			cc.Contrast = 0.15
+			cc.Parent = Lighting
+		end
+	else
+		if Lighting:FindFirstChild("DeltaColor") then
+			Lighting.DeltaColor:Destroy()
+		end
+	end
+end)
+
+toggle(pages.World,"Reset World",0.52,function(v)
+	if v then
+		Lighting.Brightness = defaultLighting.Brightness
+		Lighting.ClockTime = defaultLighting.ClockTime
+		Lighting.FogEnd = defaultLighting.FogEnd
+		Lighting.Ambient = defaultLighting.Ambient
+		Lighting.OutdoorAmbient = defaultLighting.OutdoorAmbient
+		if Lighting:FindFirstChild("DeltaColor") then
+			Lighting.DeltaColor:Destroy()
+		end
+	end
+end)
+
+--================ VISUAL ===================
+createPage("Visual") -- cria a aba Visual
+pages.Visual.Visible = true -- garante que a aba fique visível
+
+--========= CHAMS ==========
+local chamsEnabled = false
+local function applyChams(plr)
+	if plr == LocalPlayer then return end
+	local function updateChar()
+		if plr.Character then
+			for _, part in pairs(plr.Character:GetChildren()) do
+				if part:IsA("BasePart") then
+					local box = Instance.new("BoxHandleAdornment")
+					box.Adornee = part
+					box.AlwaysOnTop = true
+					box.ZIndex = 5
+					box.Size = part.Size
+					box.Color3 = Color3.fromRGB(255,0,0)
+					box.Transparency = 0.5
+					box.Name = "ChamsBox"
+					box.Parent = part
+					RunService.RenderStepped:Connect(function()
+						box.Visible = chamsEnabled
+					end)
+				end
+			end
+		end
+	end
+	plr.CharacterAdded:Connect(updateChar)
+	updateChar()
+end
+
+toggle(pages.Visual, "Chams", 0.02, function(v)
+	chamsEnabled = v
+	for _, p in pairs(Players:GetPlayers()) do
+		applyChams(p)
+	end
+end)
+
+--========= TRAIL PLAYER ==========
+local trailEnabled = false
+local trail
+toggle(pages.Visual, "Trail Player", 0.12, function(v)
+	trailEnabled = v
+	if trailEnabled then
+		if not trail then
+			trail = Instance.new("Trail")
+			local att0 = Instance.new("Attachment", hrp)
+			local att1 = Instance.new("Attachment", hrp)
+			trail.Attachment0 = att0
+			trail.Attachment1 = att1
+			trail.Color = ColorSequence.new(Color3.fromRGB(0,255,255))
+			trail.Lifetime = 0.5
+			trail.Parent = hrp
+		end
+		trail.Enabled = true
+	else
+		if trail then trail.Enabled = false end
+	end
+end)
+
+--========= GLOW WORLD ==========
+local glowEnabled = false
+toggle(pages.Visual, "Glow World", 0.22, function(v)
+	glowEnabled = v
+	for _, obj in pairs(workspace:GetDescendants()) do
+		if obj:IsA("BasePart") then
+			if glowEnabled then
+				if not obj:FindFirstChild("Glow") then
+					local glow = Instance.new("SelectionBox")
+					glow.Name = "Glow"
+					glow.Adornee = obj
+					glow.Color3 = Color3.fromRGB(0,255,0)
+					glow.LineThickness = 0.05
+					glow.Parent = obj
+				end
+			else
+				if obj:FindFirstChild("Glow") then
+					obj.Glow:Destroy()
+				end
+			end
+		end
+	end
+end)
+
+--================ ESP AVANÇADO ===================
+local espBoxesEnabled = false
+local espNamesEnabled = false
+local espHealthEnabled = false
+local espDistanceEnabled = false
+
+local espObjects = {} -- tabela pra guardar elementos de cada jogador
+
+local function createESPObject(plr)
+	if plr == LocalPlayer then return end
+	if espObjects[plr] then return end
+
+	local data = {}
+
+	data.box = Drawing.new("Square")
+	data.box.Visible = false
+	data.box.Color = Color3.fromRGB(0,255,255)
+	data.box.Thickness = 2
+	data.box.Filled = false
+
+	data.name = Drawing.new("Text")
+	data.name.Visible = false
+	data.name.Color = Color3.fromRGB(255,255,255)
+	data.name.Center = true
+	data.name.Size = 16
+	data.name.Font = 2
+
+	data.health = Drawing.new("Text")
+	data.health.Visible = false
+	data.health.Color = Color3.fromRGB(0,255,0)
+	data.health.Center = true
+	data.health.Size = 14
+	data.health.Font = 2
+
+	data.distance = Drawing.new("Text")
+	data.distance.Visible = false
+	data.distance.Color = Color3.fromRGB(255,255,0)
+	data.distance.Center = true
+	data.distance.Size = 14
+	data.distance.Font = 2
+
+	espObjects[plr] = data
+
+	RunService.RenderStepped:Connect(function()
+		if not plr.Character or not plr.Character:FindFirstChild("HumanoidRootPart") then
+			data.box.Visible = false
+			data.name.Visible = false
+			data.health.Visible = false
+			data.distance.Visible = false
+			return
+		end
+
+		local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
+		local humanoid = plr.Character:FindFirstChild("Humanoid")
+		if not hrp or not humanoid then return end
+
+		local pos, onScreen = Camera:WorldToViewportPoint(hrp.Position)
+		if onScreen then
+			-- BOX ESP
+			if espBoxesEnabled then
+				data.box.Position = Vector2.new(pos.X - 25, pos.Y - 50)
+				data.box.Size = Vector2.new(50, 100)
+				data.box.Visible = true
+			else
+				data.box.Visible = false
+			end
+
+			-- NAME ESP
+			if espNamesEnabled then
+				data.name.Position = Vector2.new(pos.X, pos.Y - 60)
+				data.name.Text = plr.Name
+				data.name.Visible = true
+			else
+				data.name.Visible = false
+			end
+
+			-- HEALTH ESP
+			if espHealthEnabled then
+				data.health.Position = Vector2.new(pos.X, pos.Y - 45)
+				data.health.Text = "HP: "..math.floor(humanoid.Health)
+				data.health.Visible = true
+			else
+				data.health.Visible = false
+			end
+
+			-- DISTANCE ESP
+			if espDistanceEnabled then
+				local dist = (hrp.Position - hrp.Position).Magnitude -- Distância simples
+				data.distance.Position = Vector2.new(pos.X, pos.Y - 30)
+				data.distance.Text = "Dist: "..math.floor(dist)
+				data.distance.Visible = true
+			else
+				data.distance.Visible = false
+			end
+		else
+			data.box.Visible = false
+			data.name.Visible = false
+			data.health.Visible = false
+			data.distance.Visible = false
+		end
+	end)
+end
+
+--================ MISC EXTRA =====================
+
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+
+--========= HIDE / SHOW UI ==========
+local uiVisible = true
+toggle(pages.Misc,"Toggle UI (RightShift)",0.12,function(v)
+	if v then
+		UIS.InputBegan:Connect(function(input, gp)
+			if not gp and input.KeyCode == Enum.KeyCode.RightShift then
+				uiVisible = not uiVisible
+				main.Visible = uiVisible
+				mini.Visible = not uiVisible
+				blur.Size = uiVisible and 25 or 0
+			end
+		end)
+	end
+end)
+
+--========= REJOIN SERVER ==========
+toggle(pages.Misc,"Rejoin Server",0.22,function(v)
+	if v then
+		TeleportService:Teleport(game.PlaceId, LocalPlayer)
+	end
+end)
+
+--========= SERVER HOP ==========
+toggle(pages.Misc,"Server Hop",0.32,function(v)
+	if not v then return end
+
+	local servers = {}
+	local req = syn and syn.request or request
+	if not req then return end
+
+	local response = req({
+		Url = "https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"
+	})
+	local data = HttpService:JSONDecode(response.Body)
+
+	for _,srv in pairs(data.data) do
+		if srv.playing < srv.maxPlayers then
+			table.insert(servers, srv.id)
+		end
+	end
+
+	if #servers > 0 then
+		TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[math.random(1,#servers)], LocalPlayer)
+	end
+end)
+
+--========= RAINBOW UI ==========
+local rainbowEnabled = false
+toggle(pages.Misc,"Rainbow UI",0.42,function(v)
+	rainbowEnabled = v
+end)
+
+RunService.RenderStepped:Connect(function()
+	if rainbowEnabled then
+		local hue = (tick() % 5) / 5
+		local color = Color3.fromHSV(hue,1,1)
+		top.BackgroundColor3 = color
+		mini.BackgroundColor3 = color
+	end
+end)
+
+--========= FPS BOOST ==========
+toggle(pages.Misc,"FPS Boost",0.52,function(v)
+	if v then
+		for _,obj in pairs(workspace:GetDescendants()) do
+			if obj:IsA("BasePart") then
+				obj.Material = Enum.Material.SmoothPlastic
+				obj.Reflectance = 0
+			elseif obj:IsA("Decal") or obj:IsA("Texture") then
+				obj.Transparency = 1
+			end
+		end
+		Lighting.GlobalShadows = false
+	else
+		Lighting.GlobalShadows = true
+	end
+end)
+
+--========= CAMERA FOV ==========
+toggle(pages.Misc,"FOV 100",0.62,function(v)
+	Camera.FieldOfView = v and 100 or 70
+end)
+
+--================ ESP AVANÇADO EXTRA ===================
+local espBonesEnabled = false
+local espWeaponsEnabled = false
+
+-- Função pra desenhar ossos
+local function drawBones(plr)
+	if plr == LocalPlayer then return end
+	local lines = {}
+	local function update()
+		if not plr.Character then return end
+		local parts = plr.Character
+		local humanoid = parts:FindFirstChild("Humanoid")
+		if not humanoid then return end
+		
+		local joints = {
+			{"Head", "UpperTorso"}, {"UpperTorso", "LowerTorso"},
+			{"LeftUpperArm","UpperTorso"}, {"RightUpperArm","UpperTorso"},
+			{"LeftLowerArm","LeftUpperArm"}, {"RightLowerArm","RightUpperArm"},
+			{"LeftHand","LeftLowerArm"}, {"RightHand","RightLowerArm"},
+			{"LeftUpperLeg","LowerTorso"}, {"RightUpperLeg","LowerTorso"},
+			{"LeftLowerLeg","LeftUpperLeg"}, {"RightLowerLeg","RightUpperLeg"},
+			{"LeftFoot","LeftLowerLeg"}, {"RightFoot","RightLowerLeg"}
+		}
+		
+		for _, j in pairs(joints) do
+			local part0 = parts:FindFirstChild(j[1])
+			local part1 = parts:FindFirstChild(j[2])
+			if part0 and part1 then
+				if not lines[j[1]] then
+					lines[j[1]] = Drawing.new("Line")
+					lines[j[1]].Color = Color3.fromRGB(0,255,255)
+					lines[j[1]].Thickness = 2
+					lines[j[1]].Visible = false
+				end
+				local pos0, onScreen0 = Camera:WorldToViewportPoint(part0.Position)
+				local pos1, onScreen1 = Camera:WorldToViewportPoint(part1.Position)
+				lines[j[1]].From = Vector2.new(pos0.X, pos0.Y)
+				lines[j[1]].To = Vector2.new(pos1.X, pos1.Y)
+				lines[j[1]].Visible = espBonesEnabled and onScreen0 and onScreen1
+			end
+		end
+	end
+	RunService.RenderStepped:Connect(update)
+end
+
+-- Cria bones pra cada jogador existente
+for _,p in pairs(Players:GetPlayers()) do drawBones(p) end
+Players.PlayerAdded:Connect(drawBones)
+
+-- Toggle ESP Ossos
+toggle(pages.ESP,"ESP Ossos",0.12,function(v)
+	espBonesEnabled = v
+end)
+
+-- Toggle ESP Armas (apenas se houver arma na mão)
+toggle(pages.ESP,"ESP Armas",0.22,function(v)
+	espWeaponsEnabled = v
+end)
+RunService.RenderStepped:Connect(function()
+	if espWeaponsEnabled then
+		for _,p in pairs(Players:GetPlayers()) do
+			if p ~= LocalPlayer and p.Character then
+				for _, tool in pairs(p.Character:GetChildren()) do
+					if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+						local handle = tool.Handle
+						local pos, onScreen = Camera:WorldToViewportPoint(handle.Position)
+						if onScreen then
+							if not handle:FindFirstChild("ESPBox") then
+								local box = Drawing.new("Square")
+								box.Color = Color3.fromRGB(255,0,0)
+								box.Size = Vector2.new(20,20)
+								box.Visible = true
+								handle:WaitForChild("ESPBox")
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end)
+
+-- Toggle ESP Health Bar Avançado
+toggle(pages.ESP,"ESP HealthBar",0.32,function(v)
+	espHealthEnabled = v -- mantém compatível com o ESP existente
+end)
+
+-- Toggle ESP Distância aprimorada
+toggle(pages.ESP,"ESP Distância+",0.42,function(v)
+	espDistanceEnabled = v -- já usa a distância, mas agora mais confiável
+end)
+
+--================ VISUAL EXTEND ===================
+local visualPage = pages.Visual
+local yOffset = 0.32 -- começa após os toggles já existentes
+
+local function addVisualToggle(name, callback)
+	toggle(visualPage, name, yOffset, callback)
+	yOffset += 0.08
+end
+
+--========= PLAYER / PERSONAGEM ==========
+local rainbowChams = false
+addVisualToggle("Rainbow Chams", function(v) rainbowChams=v end)
+
+local redChams=false
+addVisualToggle("Chams Vermelho", function(v) redChams=v end)
+
+local blueChams=false
+addVisualToggle("Chams Azul", function(v) blueChams=v end)
+
+local greenChams=false
+addVisualToggle("Chams Verde", function(v) greenChams=v end)
+
+local purpleChams=false
+addVisualToggle("Chams Roxo", function(v) purpleChams=v end)
+
+local pinkChams=false
+addVisualToggle("Chams Rosa", function(v) pinkChams=v end)
+
+local motionTrail=false
+addVisualToggle("Trail Movimento", function(v) motionTrail=v end)
+
+local bodyGlow=false
+addVisualToggle("Glow Corpo", function(v) bodyGlow=v end)
+
+local handsGlow=false
+addVisualToggle("Glow Mãos", function(v) handsGlow=v end)
+
+local headGlow=false
+addVisualToggle("Glow Cabeça", function(v) headGlow=v end)
+
+local walkParticles=false
+addVisualToggle("Partículas ao andar", function(v) walkParticles=v end)
+
+local rainbowTrail=false
+addVisualToggle("Trail Arco-íris", function(v) rainbowTrail=v end)
+
+local redTrail=false
+addVisualToggle("Trail Vermelho", function(v) redTrail=v end)
+
+local blueTrail=false
+addVisualToggle("Trail Azul", function(v) blueTrail=v end)
+
+local greenTrail=false
+addVisualToggle("Trail Verde", function(v) greenTrail=v end)
+
+local purpleTrail=false
+addVisualToggle("Trail Roxo", function(v) purpleTrail=v end)
+
+local pinkTrail=false
+addVisualToggle("Trail Rosa", function(v) pinkTrail=v end)
+
+local whiteTrail=false
+addVisualToggle("Trail Branco", function(v) whiteTrail=v end)
+
+local yellowTrail=false
+addVisualToggle("Trail Amarelo", function(v) yellowTrail=v end)
+
+local blackTrail=false
+addVisualToggle("Trail Preto", function(v) blackTrail=v end)
+
+--========= AMBIENTE / MUNDO ==========
+local highSaturation=false
+addVisualToggle("Saturação Alta", function(v) highSaturation=v end)
+
+local lowSaturation=false
+addVisualToggle("Saturação Baixa", function(v) lowSaturation=v end)
+
+local highContrast=false
+addVisualToggle("Contraste Alto", function(v) highContrast=v end)
+
+local lowContrast=false
+addVisualToggle("Contraste Baixo", function(v) lowContrast=v end)
+
+local blurWorld=false
+addVisualToggle("Blur Mundo", function(v) blurWorld=v end)
+
+local bloom=false
+addVisualToggle("Bloom", function(v) bloom=v end)
+
+local skyBlue=false
+addVisualToggle("Céu Azul", function(v) skyBlue=v end)
+
+local skyPurple=false
+addVisualToggle("Céu Roxo", function(v) skyPurple=v end)
+
+local skyOrange=false
+addVisualToggle("Céu Laranja", function(v) skyOrange=v end)
+
+local skyGreen=false
+addVisualToggle("Céu Verde", function(v) skyGreen=v end)
+
+local fogPink=false
+addVisualToggle("Névoa Rosa", function(v) fogPink=v end)
+
+local fogBlue=false
+addVisualToggle("Névoa Azul", function(v) fogBlue=v end)
+
+local fogGreen=false
+addVisualToggle("Névoa Verde", function(v) fogGreen=v end)
+
+local fogPurple=false
+addVisualToggle("Névoa Roxa", function(v) fogPurple=v end)
+
+local globalGlow=false
+addVisualToggle("Brilho Global", function(v) globalGlow=v end)
+
+local rainEffect=false
+addVisualToggle("Chuva", function(v) rainEffect=v end)
+
+local snowEffect=false
+addVisualToggle("Neve", function(v) snowEffect=v end)
+
+local extremeDay=false
+addVisualToggle("Day Mode Extremo", function(v) extremeDay=v end)
+
+local extremeNight=false
+addVisualToggle("Night Mode Extremo", function(v) extremeNight=v end)
+
+local bigMoon=false
+addVisualToggle("Lua Gigante", function(v) bigMoon=v end)
+
+--========= CÂMERA / TELA ==========
+local fovHigh=false
+addVisualToggle("FOV Aumentado", function(v) fovHigh=v end)
+
+local fovLow=false
+addVisualToggle("FOV Reduzido", function(v) fovLow=v end)
+
+local tiltLeft=false
+addVisualToggle("Tilt Camera Esquerda", function(v) tiltLeft=v end)
+
+local tiltRight=false
+addVisualToggle("Tilt Camera Direita", function(v) tiltRight=v end)
+
+local zoomIn=false
+addVisualToggle("Zoom In", function(v) zoomIn=v end)
+
+local zoomOut=false
+addVisualToggle("Zoom Out", function(v) zoomOut=v end)
+
+local motionBlur=false
+addVisualToggle("Motion Blur", function(v) motionBlur=v end)
+
+local redFilter=false
+addVisualToggle("Filtro Vermelho", function(v) redFilter=v end)
+
+local blueFilter=false
+addVisualToggle("Filtro Azul", function(v) blueFilter=v end)
+
+local greenFilter=false
+addVisualToggle("Filtro Verde", function(v) greenFilter=v end)
+
+--========= AQUI PODEMOS COLOCAR LOOP DE APLICAÇÃO ==========
+RunService.RenderStepped:Connect(function()
+	-- exemplo de efeito: aplicar saturação
+	if highSaturation then
+		Lighting.GlobalShadows = true
+		Lighting.Brightness = 3
+	end
+	if lowSaturation then
+		Lighting.GlobalShadows = false
+		Lighting.Brightness = 1
+	end
+	-- Day / Night extremo
+	if extremeDay then
+		Lighting.ClockTime = 14
+	elseif extremeNight then
+		Lighting.ClockTime = 0
+	end
+	-- Lua gigante
+	if bigMoon then
+		-- aqui poderia spawnar uma Lua fake no céu
+	end
+	-- Trails, chams, glow e filtros podem ser aplicados de forma semelhante
+end)
+
+--================ CRÉDITOS ===================
+createPage("Créditos") -- nova aba
+local creditPage = pages["Créditos"]
+creditPage.Visible = false
+
+local creditText = Instance.new("TextLabel", creditPage)
+creditText.Size = UDim2.fromScale(1,0.1)
+creditText.Position = UDim2.fromScale(0,0)
+creditText.Text = "DELTA PREMIUM ULTRA\nVersão: FINAL\nDesenvolvedores: Equipe Delta"
+creditText.TextScaled = true
+creditText.Font = Enum.Font.GothamBold
+creditText.TextColor3 = Color3.fromRGB(255,255,0)
+creditText.BackgroundTransparency = 1
+
+--================ TELEPORT PLAYER ===================
+local function teleportToPlayer(targetName)
+	for _, plr in pairs(Players:GetPlayers()) do
+		if plr.Name:lower():find(targetName:lower()) then
+			if plr.Character and hrp then
+				hrp.CFrame = plr.Character.HumanoidRootPart.CFrame + Vector3.new(0,5,0)
+			end
+			return
+		end
+	end
+end
+
+-- Adicionando na aba MISC
+local teleportBox = Instance.new("TextBox", pages.Misc)
+teleportBox.PlaceholderText = "Nome do jogador"
+teleportBox.Size = UDim2.fromScale(0.6,0.06)
+teleportBox.Position = UDim2.fromScale(0.05,0.22)
+teleportBox.BackgroundColor3 = Color3.fromRGB(35,35,35)
+teleportBox.TextColor3 = Color3.fromRGB(255,255,255)
+Instance.new("UICorner", teleportBox)
+teleportBox.TextScaled = true
+
+local teleportBtn = Instance.new("TextButton", pages.Misc)
+teleportBtn.Size = UDim2.fromScale(0.3,0.06)
+teleportBtn.Position = UDim2.fromScale(0.67,0.22)
+teleportBtn.Text = "TP"
+teleportBtn.BackgroundColor3 = Color3.fromRGB(0,200,200)
+teleportBtn.TextColor3 = Color3.fromRGB(0,0,0)
+Instance.new("UICorner", teleportBtn)
+teleportBtn.TextScaled = true
+
+teleportBtn.MouseButton1Click:Connect(function()
+	local targetName = teleportBox.Text
+	if targetName ~= "" then
+		teleportToPlayer(targetName)
+	end
+end)
+
+--================ PLAYER ===================
+toggle(pages.Player,"Speed",0.02,function(v)
+	humanoid.WalkSpeed = v and 50 or 16
+end)
+toggle(pages.Player,"Jump Boost",0.12,function(v)
+	humanoid.JumpPower = v and 120 or 50
+end)
+
+-- FLY 360°  
+local flyEnabled = false
+local BodyGyro, BodyVelocity
+local flySpeed = 60
+local keys = {W=false,A=false,S=false,D=false}
+
+UserInputService.InputBegan:Connect(function(input,gpe)
+	if gpe then return end
+	if input.KeyCode == Enum.KeyCode.W then keys.W=true end
+	if input.KeyCode == Enum.KeyCode.A then keys.A=true end
+	if input.KeyCode == Enum.KeyCode.S then keys.S=true end
+	if input.KeyCode == Enum.KeyCode.D then keys.D=true end
+end)
+UserInputService.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.W then keys.W=false end
+	if input.KeyCode == Enum.KeyCode.A then keys.A=false end
+	if input.KeyCode == Enum.KeyCode.S then keys.S=false end
+	if input.KeyCode == Enum.KeyCode.D then keys.D=false end
+end)
+
+local function startFly()
+	flyEnabled = true
+	humanoid.AutoRotate = false
+	humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+	BodyGyro = Instance.new("BodyGyro", hrp)
+	BodyGyro.P = 1e5
+	BodyGyro.MaxTorque = Vector3.new(9e9,9e9,9e9)
+	BodyVelocity = Instance.new("BodyVelocity", hrp)
+	BodyVelocity.MaxForce = Vector3.new(9e9,9e9,9e9)
+end
+
+local function stopFly()
+	flyEnabled = false
+	humanoid.AutoRotate = true
+	humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+	if BodyGyro then BodyGyro:Destroy() end
+	if BodyVelocity then BodyVelocity:Destroy() end
+end
+
+toggle(pages.Player,"Fly 360°",0.22,function(v)
+	if v then
+		startFly()
+	else
+		stopFly()
+	end
+end)
+
+-- Loop Fly
+RunService.RenderStepped:Connect(function()
+	if not flyEnabled then return end
+	local camCF = Camera.CFrame
+	local move = Vector3.zero
+	if keys.W then move += camCF.LookVector end
+	if keys.S then move -= camCF.LookVector end
+	if keys.D then move += camCF.RightVector end
+	if keys.A then move -= camCF.RightVector end
+	local moveDir = humanoid.MoveDirection
+	if moveDir.Magnitude > 0 then
+		move += camCF.LookVector * moveDir.Magnitude
+	end
+	if move.Magnitude > 0 then
+		move = move.Unit * flySpeed
+	end
+	BodyVelocity.Velocity = move
+	BodyGyro.CFrame = CFrame.new(hrp.Position, hrp.Position + camCF.LookVector)
+end)
+
+--================ VISUAL AVANÇADO ===================
+local highSaturation = false
+local rainbowChams = false
+local rainbowTrail = false
+local cameraTiltEnabled = false
+local particleEffectEnabled = false
+local fovEnabled = false
+local customSkyboxEnabled = false
+local screenShakeEnabled = false
+
+-- Atualiza Chams Rainbow
+RunService.RenderStepped:Connect(function()
+    for _,p in pairs(Players:GetPlayers()) do
+        if p ~= LocalPlayer and p.Character then
+            for _,part in pairs(p.Character:GetChildren()) do
+                if part:IsA("BasePart") then
+                    if rainbowChams then
+                        local box = part:FindFirstChild("ChamsBox")
+                        if not box then
+                            box = Instance.new("BoxHandleAdornment")
+                            box.Name = "ChamsBox"
+                            box.Adornee = part
+                            box.AlwaysOnTop = true
+                            box.Size = part.Size
+                            box.ZIndex = 5
+                            box.Parent = part
+                        end
+                        local hue = tick() % 5 / 5
+                        box.Color3 = Color3.fromHSV(hue,1,1)
+                        box.Transparency = 0.5
+                    else
+                        if part:FindFirstChild("ChamsBox") then
+                            part.ChamsBox:Destroy()
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
+
+-- Trail Rainbow
+local trail
+toggle(pages.Visual, "Trail Player Rainbow", 0.05, function(v)
+    rainbowTrail = v
+    if rainbowTrail then
+        if not trail then
+            trail = Instance.new("Trail")
+            local att0 = Instance.new("Attachment", hrp)
+            local att1 = Instance.new("Attachment", hrp)
+            trail.Attachment0 = att0
+            trail.Attachment1 = att1
+            trail.Lifetime = 0.5
+            trail.Parent = hrp
+        end
+        trail.Enabled = true
+    else
+        if trail then trail.Enabled = false end
+    end
+end)
+
+-- Camera Tilt
+toggle(pages.Visual, "Camera Tilt", 0.12, function(v)
+    cameraTiltEnabled = v
+end)
+
+RunService.RenderStepped:Connect(function()
+    if cameraTiltEnabled then
+        local tilt = math.sin(tick()) * math.rad(2)
+        camera.CFrame = camera.CFrame * CFrame.Angles(0,0,tilt)
+    end
+end)
+
+-- Particle Effect
+toggle(pages.Visual, "Particle Effect", 0.18, function(v)
+    particleEffectEnabled = v
+    if particleEffectEnabled then
+        if not hrp:FindFirstChild("DeltaParticles") then
+            local pe = Instance.new("ParticleEmitter")
+            pe.Name = "DeltaParticles"
+            pe.Texture = "rbxassetid://243098098" -- Exemplo de textura
+            pe.Color = ColorSequence.new(Color3.fromRGB(0,255,255))
+            pe.Rate = 50
+            pe.Lifetime = NumberRange.new(0.5,1)
+            pe.Parent = hrp
+        end
+    else
+        if hrp:FindFirstChild("DeltaParticles") then
+            hrp.DeltaParticles:Destroy()
+        end
+    end
+end)
+
+-- FOV Ajustável
+toggle(pages.Visual, "FOV 120", 0.22, function(v)
+    fovEnabled = v
+    if fovEnabled then
+        camera.FieldOfView = 120
+    else
+        camera.FieldOfView = 70
+    end
+end)
+
+-- Custom Skybox
+toggle(pages.Visual, "Skybox Swap", 0.26, function(v)
+    customSkyboxEnabled = v
+    if customSkyboxEnabled then
+        if not Lighting:FindFirstChild("DeltaSky") then
+            local sky = Instance.new("Sky")
+            sky.Name = "DeltaSky"
+            sky.SkyboxBk = "rbxassetid://YOUR_BACK_ID"
+            sky.SkyboxDn = "rbxassetid://YOUR_DOWN_ID"
+            sky.SkyboxFt = "rbxassetid://YOUR_FRONT_ID"
+            sky.SkyboxLf = "rbxassetid://YOUR_LEFT_ID"
+            sky.SkyboxRt = "rbxassetid://YOUR_RIGHT_ID"
+            sky.SkyboxUp = "rbxassetid://YOUR_UP_ID"
+            sky.Parent = Lighting
+        end
+    else
+        if Lighting:FindFirstChild("DeltaSky") then
+            Lighting.DeltaSky:Destroy()
+        end
+    end
+end)
+-- Screen Shake
+local shakeOffset = Vector3.new(0,0,0)
+toggle(pages.Visual, "Screen Shake", 0.3, function(v)
+    screenShakeEnabled = v
+end)
+
+RunService.RenderStepped:Connect(function()
+    if screenShakeEnabled then
+        shakeOffset = Vector3.new(math.random(-1,1)*0.1,math.random(-1,1)*0.1,math.random(-1,1)*0.1)
+        camera.CFrame = camera.CFrame + shakeOffset
+    end
+end)
+

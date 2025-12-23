@@ -1443,3 +1443,93 @@ UserInputService.InputChanged:Connect(function(input)
 		volumeText.Text = "Volume: " .. vol
 	end
 end)
+
+--================ MUSIC (DENTRO DE MISC) ===================
+
+-- Caixa ID da música
+local musicBox = Instance.new("TextBox", pages.Misc)
+musicBox.PlaceholderText = "ID da música"
+musicBox.Size = UDim2.fromScale(0.9, 0.06)
+musicBox.Position = UDim2.fromScale(0.05, 0.35)
+musicBox.BackgroundColor3 = Color3.fromRGB(35,35,35)
+musicBox.TextColor3 = Color3.fromRGB(255,255,255)
+musicBox.TextScaled = true
+musicBox.ClearTextOnFocus = false
+Instance.new("UICorner", musicBox)
+
+-- Play
+local playBtn = Instance.new("TextButton", pages.Misc)
+playBtn.Size = UDim2.fromScale(0.43, 0.06)
+playBtn.Position = UDim2.fromScale(0.05, 0.43)
+playBtn.Text = "Play"
+playBtn.TextScaled = true
+playBtn.Font = Enum.Font.GothamBold
+playBtn.BackgroundColor3 = Color3.fromRGB(0,200,0)
+playBtn.TextColor3 = Color3.fromRGB(0,0,0)
+Instance.new("UICorner", playBtn)
+
+-- Stop
+local stopBtn = Instance.new("TextButton", pages.Misc)
+stopBtn.Size = UDim2.fromScale(0.43, 0.06)
+stopBtn.Position = UDim2.fromScale(0.52, 0.43)
+stopBtn.Text = "Stop"
+stopBtn.TextScaled = true
+stopBtn.Font = Enum.Font.GothamBold
+stopBtn.BackgroundColor3 = Color3.fromRGB(200,0,0)
+stopBtn.TextColor3 = Color3.fromRGB(255,255,255)
+Instance.new("UICorner", stopBtn)
+
+-- Som local
+local musicSound = Instance.new("Sound")
+musicSound.Volume = 3
+musicSound.Looped = true
+musicSound.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+playBtn.MouseButton1Click:Connect(function()
+	local id = tonumber(musicBox.Text)
+	if id then
+		musicSound.SoundId = "rbxassetid://" .. id
+		musicSound:Play()
+	end
+end)
+
+stopBtn.MouseButton1Click:Connect(function()
+	musicSound:Stop()
+end)
+
+-- Volume
+local volumeBg = Instance.new("Frame", pages.Misc)
+volumeBg.Size = UDim2.fromScale(0.9, 0.05)
+volumeBg.Position = UDim2.fromScale(0.05, 0.52)
+volumeBg.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Instance.new("UICorner", volumeBg)
+
+local volumeFill = Instance.new("Frame", volumeBg)
+volumeFill.Size = UDim2.fromScale(0.3, 1)
+volumeFill.BackgroundColor3 = Color3.fromRGB(0,200,200)
+Instance.new("UICorner", volumeFill)
+
+local dragging = false
+
+volumeBg.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+	end
+end)
+
+volumeBg.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = false
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+		local percent = math.clamp(
+			(input.Position.X - volumeBg.AbsolutePosition.X) / volumeBg.AbsoluteSize.X,
+			0, 1
+		)
+		volumeFill.Size = UDim2.fromScale(percent, 1)
+		musicSound.Volume = math.floor(percent * 10)
+	end
+end)
